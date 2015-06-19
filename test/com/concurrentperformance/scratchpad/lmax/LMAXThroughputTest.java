@@ -15,11 +15,11 @@ public class LMAXThroughputTest {
 	@Test
 	public void testThroughput() {
 
-		final int iterations = 100000000;
+		final int iterations = 1000000;
 		final CountDownLatch finished = new CountDownLatch(1);
 
 		LMAXThroughput lmaxThroughput = new LMAXThroughput((bucket, sequence, endOfBatch) -> {
-			if (iterations == bucket.getId()) {
+			if (bucket.getId() == (iterations -1)) {
 				finished.countDown();
 			}
 
@@ -31,7 +31,7 @@ public class LMAXThroughputTest {
 		// Warmup
 		log.info("Start Warmup. Buffer Size [{}]. Iterations [{}]", LMAXThroughput.RING_SIZE, iterations);
 		for (int i=0;i<iterations;i++) {
-			lmaxThroughput.putOntoBuffer(1);
+			lmaxThroughput.putOntoBuffer(-1);
 		}
 		log.info("Start Main Test");
 
