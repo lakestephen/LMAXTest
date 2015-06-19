@@ -19,7 +19,7 @@ public class LMAXThroughputTest {
 		final CountDownLatch finished = new CountDownLatch(1);
 
 		LMAXThroughput lmaxThroughput = new LMAXThroughput((bucket, sequence, endOfBatch) -> {
-			if (sequence == bucket.getId()) {
+			if (iterations == bucket.getId()) {
 				finished.countDown();
 			}
 
@@ -38,7 +38,7 @@ public class LMAXThroughputTest {
 		long start = System.currentTimeMillis();
 
 		for (int i=0;i<iterations;i++) {
-			lmaxThroughput.putOntoBuffer(1);
+			lmaxThroughput.putOntoBuffer(i);
 		}
 		long sumbissionEnd = System.currentTimeMillis();
 		long submissionDuration = sumbissionEnd - start;

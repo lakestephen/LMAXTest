@@ -1,7 +1,7 @@
 package com.concurrentperformance.scratchpad.lmax;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.lmax.disruptor.BlockingWaitStrategy;
+import com.lmax.disruptor.BusySpinWaitStrategy;
 import com.lmax.disruptor.EventHandler;
 import com.lmax.disruptor.EventTranslator;
 import com.lmax.disruptor.dsl.Disruptor;
@@ -22,7 +22,7 @@ public class LMAXThroughput {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	public static final int RING_SIZE = 1 << 10;
+	public static final int RING_SIZE = 1 << 18;
 	private final Executor EXECUTOR = Executors.newFixedThreadPool(2, new ThreadFactoryBuilder().setNameFormat("ProcessEvents_%d").build());
 
 	private ProducerTranslator translator = new ProducerTranslator();
@@ -32,7 +32,7 @@ public class LMAXThroughput {
 					RING_SIZE,
 					EXECUTOR,
 					ProducerType.SINGLE,
-					new BlockingWaitStrategy());
+					new BusySpinWaitStrategy());
 
 	public LMAXThroughput(EventHandler<Bucket> handler) {
 		disruptor.handleEventsWith(handler);
