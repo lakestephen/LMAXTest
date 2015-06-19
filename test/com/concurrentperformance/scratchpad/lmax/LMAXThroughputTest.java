@@ -28,6 +28,13 @@ public class LMAXThroughputTest {
 			}
 		});
 
+		// Warmup
+		log.info("Start Warmup");
+		for (int i=0;i<iterations;i++) {
+			lmaxThroughput.putOntoBuffer(1);
+		}
+		log.info("Start Main Test");
+
 		long start = System.currentTimeMillis();
 
 		for (int i=0;i<iterations;i++) {
