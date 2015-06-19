@@ -22,7 +22,7 @@ public class LMAXThroughput {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-	private static final int RING_SIZE = 1 << 10;
+	public static final int RING_SIZE = 1 << 10;
 	private final Executor EXECUTOR = Executors.newFixedThreadPool(2, new ThreadFactoryBuilder().setNameFormat("ProcessEvents_%d").build());
 
 	private ProducerTranslator translator = new ProducerTranslator();

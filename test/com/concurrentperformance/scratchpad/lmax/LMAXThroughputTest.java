@@ -29,7 +29,7 @@ public class LMAXThroughputTest {
 		});
 
 		// Warmup
-		log.info("Start Warmup");
+		log.info("Start Warmup. Buffer Size [{}]. Iterations [{}]", LMAXThroughput.RING_SIZE, iterations);
 		for (int i=0;i<iterations;i++) {
 			lmaxThroughput.putOntoBuffer(1);
 		}
